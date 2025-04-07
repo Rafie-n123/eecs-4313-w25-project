@@ -6,6 +6,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +45,7 @@ class FileImageSourceTest {
 	@Test
 	public void FileImageSourceTest2() {
 			
-		FileImageSource fis11 = new FileImageSource("C:\\Users\\joshh\\Downloads");
+		FileImageSource fis11 = new FileImageSource("src\\test\\java\\net\\coobird\\thumbnailator\\tasks\\io\\test1.jpg");
 		
 		assertNotNull(fis11);
 		
@@ -64,7 +66,8 @@ class FileImageSourceTest {
 	@Test
 	public void readTest() throws IOException {
 		
-		File f0 = new File("C:\\Users\\joshh\\Downloads\\test1.jpg");
+		Path path = Paths.get("test/resources/test1.jpg");
+		File f0 = path.toFile();
 		FileImageSource fsi1 = new FileImageSource(f0);
 		BufferedImage testImage = fsi1.read();		
 		assertNotNull(testImage);
@@ -102,14 +105,15 @@ class FileImageSourceTest {
 	@Test
 	public void unsupportedFormatTest() throws IOException {
 		
-		File f0 = new File("C:\\Users\\joshh\\Downloads\\LabL.pdf");
+		Path path = Paths.get("test/resources/unsupportedFormat.txt");
+		File f0 = path.toFile();
 		FileImageSource fuf = new FileImageSource(f0);
 		
 		Exception exception = assertThrows(UnsupportedFormatException.class, () -> {
             fuf.read();
 		});
 			
-			assertEquals("No suitable ImageReader found for C:\\Users\\joshh\\Downloads\\LabL.pdf.", exception.getMessage()); 
+			assertEquals("No suitable ImageReader found for " + f0.getAbsolutePath()+".", exception.getMessage()); 
 			
 	}
 
