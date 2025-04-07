@@ -90,14 +90,14 @@ class FileImageSourceTest {
 	@Test
 	public void nonExistentFileTest() throws IOException {
 		
-		File f0 = new File("C:\\Users\\joshh\\Downloads\\doesNotExist.jpg");
-		FileImageSource fdne = new FileImageSource(f0);
+		File file = new File("src/test/resources/doesNotExist.jpg");
+		FileImageSource fdne = new FileImageSource(file);
 		
 		Exception exception = assertThrows(FileNotFoundException.class, () -> {
             fdne.read();
 		});
 			
-			assertEquals("Could not find file: C:\\Users\\joshh\\Downloads\\doesNotExist.jpg", exception.getMessage()); 
+			assertEquals("Could not find file: "+ file.getAbsolutePath(), exception.getMessage()); 
 			
 	}	
 	
