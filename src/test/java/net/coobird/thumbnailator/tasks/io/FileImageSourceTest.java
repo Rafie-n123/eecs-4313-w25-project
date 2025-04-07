@@ -66,11 +66,24 @@ class FileImageSourceTest {
 		
 		File f0 = new File("C:\\Users\\joshh\\Downloads\\test1.jpg");
 		FileImageSource fsi1 = new FileImageSource(f0);
-		
-		BufferedImage testImage = fsi1.read();
+		BufferedImage testImage = fsi1.read();		
 		assertNotNull(testImage);
 		
 	}
+	
+	@Test
+	public void nullFileTest() throws IOException {
+		
+		File fNull = null;
+		
+		Exception exception = assertThrows(NullPointerException.class, () -> {
+ 		((ImageSource<File>) fNull).read();          
+		});
+			
+			assertEquals("Cannot invoke \"net.coobird.thumbnailator.tasks.io.ImageSource.read()\" because \"<parameter1>\" is null", exception.getMessage()); 
+			
+	}	
+	
 	
 	@Test
 	public void nonExistentFileTest() throws IOException {
