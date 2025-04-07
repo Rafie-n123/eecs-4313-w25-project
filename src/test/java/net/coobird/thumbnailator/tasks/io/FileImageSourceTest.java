@@ -66,9 +66,8 @@ class FileImageSourceTest {
 	@Test
 	public void readTest() throws IOException {
 		
-		Path path = Paths.get("test/resources/test1.jpg");
-		File f0 = path.toFile();
-		FileImageSource fsi1 = new FileImageSource(f0);
+		File file = new File("src/test/resources/test1.jpg");
+		FileImageSource fsi1 = new FileImageSource(file);
 		BufferedImage testImage = fsi1.read();		
 		assertNotNull(testImage);
 		
@@ -105,15 +104,14 @@ class FileImageSourceTest {
 	@Test
 	public void unsupportedFormatTest() throws IOException {
 		
-		Path path = Paths.get("test/resources/unsupportedFormat.txt");
-		File f0 = path.toFile();
-		FileImageSource fuf = new FileImageSource(f0);
+		File file = new File("src/test/resources/unsupportedFormat.txt");
+		FileImageSource fuf = new FileImageSource(file);
 		
 		Exception exception = assertThrows(UnsupportedFormatException.class, () -> {
             fuf.read();
 		});
 			
-			assertEquals("No suitable ImageReader found for " + f0.getAbsolutePath()+".", exception.getMessage()); 
+			assertEquals("No suitable ImageReader found for " + file.getAbsolutePath()+".", exception.getMessage()); 
 			
 	}
 
